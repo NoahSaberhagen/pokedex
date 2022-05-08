@@ -35,10 +35,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var _this = this;
-var pokeAPI_URL = "https://pokeapi.co/api/v2/pokemon?limit=10000";
-var pokemonUrlsArr = [];
-console.log("goodbye");
-var fetchPokemonData = function () { return __awaiter(_this, void 0, void 0, function () {
+var pokeAPI_URL = "https://pokeapi.co/api/v2/pokemon?limit=10000"; //as of writing this, there are 1126 entries
+var pokemonUrls = []; //stores unique urls for each pokemon entry
+console.log("hello");
+var fetchPokemonInit = function () { return __awaiter(_this, void 0, void 0, function () {
     var data, response, resultsArr;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -51,24 +51,16 @@ var fetchPokemonData = function () { return __awaiter(_this, void 0, void 0, fun
                 return [4 /*yield*/, response.results];
             case 3:
                 resultsArr = _a.sent();
-                resultsArr.forEach(function (pokemon) {
-                    pokemonUrlsArr.push(pokemon.url);
+                resultsArr.forEach(function (result) {
+                    pokemonUrls.push(result);
                 });
                 return [2 /*return*/];
         }
     });
 }); };
-var generatePokedexEntry = function (array) { return __awaiter(_this, void 0, void 0, function () {
-    var i, url, data, response;
-    return __generator(this, function (_a) {
-        for (i = 0; i < array.length; i++) {
-            url = array[i];
-            data = fetch(url);
-            response = data.json;
-            console.log("1");
-        }
-        return [2 /*return*/];
-    });
-}); };
-fetchPokemonData();
-generatePokedexEntry(pokemonUrlsArr);
+fetchPokemonInit(); //now our pokemonUrls should be populated
+console.log(pokemonUrls);
+for (var i = 0; i < pokemonUrls.length; i++) {
+    console.log(pokemonUrls[i].url);
+}
+;
