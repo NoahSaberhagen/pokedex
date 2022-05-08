@@ -35,11 +35,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var _this = this;
-var pokeAPI_URL = "https://pokeapi.co/api/v2/pokemon?limit=10000"; //as of writing this, there are 1126 entries
-var pokemonUrls = []; //stores unique urls for each pokemon entry
-console.log("hello");
-var fetchPokemonInit = function () { return __awaiter(_this, void 0, void 0, function () {
-    var data, response, resultsArr;
+var pokeAPI_URL = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0"; //as of writing this, there are 1126 entries
+;
+// console.log("hello")
+var pokemonInterfaceArr = []; //stores unique urls for each pokemon entry
+var fetchPokeAPI = function () { return __awaiter(_this, void 0, void 0, function () {
+    var data, response, i, data_1, response_1, newImg;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, fetch(pokeAPI_URL)];
@@ -50,17 +51,26 @@ var fetchPokemonInit = function () { return __awaiter(_this, void 0, void 0, fun
                 response = _a.sent();
                 return [4 /*yield*/, response.results];
             case 3:
-                resultsArr = _a.sent();
-                resultsArr.forEach(function (result) {
-                    pokemonUrls.push(result);
-                });
-                return [2 /*return*/];
+                pokemonInterfaceArr = _a.sent();
+                i = 0;
+                _a.label = 4;
+            case 4:
+                if (!(i < pokemonInterfaceArr.length)) return [3 /*break*/, 8];
+                return [4 /*yield*/, fetch(pokemonInterfaceArr[i].url)];
+            case 5:
+                data_1 = _a.sent();
+                return [4 /*yield*/, data_1.json()];
+            case 6:
+                response_1 = _a.sent();
+                newImg = document.createElement("img");
+                newImg.setAttribute("src", response_1.sprites.front_default);
+                document.body.appendChild(newImg);
+                _a.label = 7;
+            case 7:
+                i++;
+                return [3 /*break*/, 4];
+            case 8: return [2 /*return*/];
         }
     });
 }); };
-fetchPokemonInit(); //now our pokemonUrls should be populated
-console.log(pokemonUrls);
-for (var i = 0; i < pokemonUrls.length; i++) {
-    console.log(pokemonUrls[i].url);
-}
-;
+fetchPokeAPI(); //now our pokemonUrls should be populated
