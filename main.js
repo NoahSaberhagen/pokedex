@@ -36,9 +36,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 var pokeAPI_URL = "https://pokeapi.co/api/v2/pokemon?limit=10000";
-console.log("hello");
-var blah = function () { return __awaiter(_this, void 0, void 0, function () {
-    var data, response;
+var pokemonUrlsArr = [];
+console.log("goodbye");
+var fetchPokemonData = function () { return __awaiter(_this, void 0, void 0, function () {
+    var data, response, resultsArr;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, fetch(pokeAPI_URL)];
@@ -47,9 +48,27 @@ var blah = function () { return __awaiter(_this, void 0, void 0, function () {
                 return [4 /*yield*/, data.json()];
             case 2:
                 response = _a.sent();
-                console.log(response);
+                return [4 /*yield*/, response.results];
+            case 3:
+                resultsArr = _a.sent();
+                resultsArr.forEach(function (pokemon) {
+                    pokemonUrlsArr.push(pokemon.url);
+                });
                 return [2 /*return*/];
         }
     });
 }); };
-blah();
+var generatePokedexEntry = function (array) { return __awaiter(_this, void 0, void 0, function () {
+    var i, url, data, response;
+    return __generator(this, function (_a) {
+        for (i = 0; i < array.length; i++) {
+            url = array[i];
+            data = fetch(url);
+            response = data.json;
+            console.log("1");
+        }
+        return [2 /*return*/];
+    });
+}); };
+fetchPokemonData();
+generatePokedexEntry(pokemonUrlsArr);
