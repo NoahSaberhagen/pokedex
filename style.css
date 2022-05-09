@@ -1,8 +1,26 @@
-.pokemon-display{
-  border: 5px solid black;
+body{
+  background-color: darkorange;
+}
+
+[class^=display-wrapper__scroll]{
+  background-color: aqua;
+  height: 200px;
+  margin: 10px;
+  position: relative;
+  top: 100px;
+  width: 50px;
+}
+
+
+.display-wrapper{
   display: flex;
+  justify-content: center;
+}
+.display-wrapper__pokemon-display{
+  background-color: aliceblue;
+  border: 5px solid black;
   height: 400px;
-  margin: auto;
+  margin: 0;
   width: 400px;
 }
 
