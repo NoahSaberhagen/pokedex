@@ -40,7 +40,7 @@ var pokeAPI_URL = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0"; //a
 // console.log("hello")
 var pokemonInterfaceArr = []; //stores unique urls for each pokemon entry
 var fetchPokeAPI = function () { return __awaiter(_this, void 0, void 0, function () {
-    var data, response, i, data_1, response_1, newImg;
+    var data, response, i, data_1, response_1, newImg, newP;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, fetch(pokeAPI_URL)];
@@ -64,6 +64,9 @@ var fetchPokeAPI = function () { return __awaiter(_this, void 0, void 0, functio
                 response_1 = _a.sent();
                 newImg = document.createElement("img");
                 newImg.setAttribute("src", response_1.sprites.front_default);
+                newP = document.createElement("p");
+                newP.textContent = response_1.name;
+                document.body.appendChild(newP);
                 document.body.appendChild(newImg);
                 _a.label = 7;
             case 7:

@@ -15,16 +15,21 @@ const fetchPokeAPI = async () => {              //this function is necessary to 
   
   pokemonInterfaceArr = await response.results;
 
-  for(let i = 0; i < pokemonInterfaceArr.length; i++){
-    const data = await fetch(pokemonInterfaceArr[i].url);
-    const response = await data.json();
+  for(let i = 0; i < pokemonInterfaceArr.length; i++){          //this generates a list of all pokemon and their
+    const data = await fetch(pokemonInterfaceArr[i].url);       //sprites. it is useful for development but likely
+    const response = await data.json();                         //not going to be a final feature.
 
     const newImg = document.createElement("img");
     newImg.setAttribute("src", response.sprites.front_default);
+    
+
+    const newP = document.createElement("p");
+    newP.textContent = response.name;
+    
+    document.body.appendChild(newP);
     document.body.appendChild(newImg);
   }
 };
-
 
 
 
