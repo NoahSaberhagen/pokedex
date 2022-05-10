@@ -8,6 +8,10 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/jquery": "^3.5.14",
     "vite": "^2.9.7"
+  },
+  "dependencies": {
+    "jquery": "^3.6.0"
   }
 }

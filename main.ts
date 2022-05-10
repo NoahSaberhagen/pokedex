@@ -1,38 +1,57 @@
-const pokeAPI_URL = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0"; //as of writing this, there are 1126 entries
+import $ from "jQuery";
 
-interface pokemonInterface{          //interfaces the results object from fetching pokeAPI_URL
+const POKE_LIMIT = 1125;
+
+type StringOrNull = string | null; //types in separate file
+
+interface PokemonSprites{
+  back_default: StringOrNull,
+  back_female: StringOrNull,
+  back_shiny: StringOrNull,
+  back_shiny_female: StringOrNull,
+  front_default: StringOrNull,
+  front_female: StringOrNull,
+  front_shiny:  StringOrNull,
+  front_shiny_female: StringOrNull
+}
+
+interface Pokemon{         
   name: string,
-  url: string,
+  sprite: PokemonSprites
 };
 
-// console.log("hello")
+let currentPokemonIdx = 0;
+let pokemon: Pokemon[] = [];
 
-let pokemonInterfaceArr: pokemonInterface[] = [];     //stores unique urls for each pokemon entry
+const updatePokemonDisplay = () => {
+  $("display-wrapper__pokemon-display").text(pokemon[1].name);
+}
 
-const fetchPokeAPI = async () => {              //this function is necessary to retrieve the url of each
-  const data = await fetch(pokeAPI_URL);        //individual pokemon. this way we are able to access more
-  const response = await data.json();           //detailed data such as abilities, sprites, etc.
+const fetchPokeAPI = async () => { 
+  const pokeAPI_URL = `https://pokeapi.co/api/v2/pokemon?` + new URLSearchParams({
+    limit: "3",
+    offset: currentPokemonIdx.toString()
+  });
+  //fetches 3 pokemon at a time    
+  const response = await fetch(pokeAPI_URL);                                         
+  const data = await response.json();   
+  const pokemonToFetch = data.results;
+
+  const newPokemon: Pokemon[] = [];
+  for(let i = 0; i < pokemonToFetch.length; i++){
+    const response = await fetch(pokemonToFetch[i].url);
+    const data = await response.json();
+    newPokemon.push(data);
+  };  
   
-  pokemonInterfaceArr = await response.results;
+  pokemon = newPokemon;
 
-  for(let i = 0; i < pokemonInterfaceArr.length; i++){          //this generates a list of all pokemon and their
-    const data = await fetch(pokemonInterfaceArr[i].url);       //sprites. it is useful for development but likely
-    const response = await data.json();                         //not going to be a final feature.
-
-    const newImg = document.createElement("img");
-    newImg.setAttribute("src", response.sprites.front_default);
-    
-
-    const newP = document.createElement("p");
-    newP.textContent = response.name;
-    
-    document.body.appendChild(newP);
-    document.body.appendChild(newImg);
-  }
+  //update pokemon display ()
 };
+await fetchPokeAPI();
+updatePokemonDisplay();
 
 
 
-fetchPokeAPI();         //now our pokemonUrls should be populated
 
-
+// 1126 pokemon
