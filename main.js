@@ -28,7 +28,6 @@ const fetchPokeAPI = async () => {
     }
     ;
     pokemon = newPokemon;
-    console.log(pokemon); //FOR DEVELOPMENT ONLY
     updatePokemonDisplay();
 };
 await fetchPokeAPI();
