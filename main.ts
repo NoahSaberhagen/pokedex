@@ -1,4 +1,4 @@
-import $ from "jQuery";
+import $ from "jquery"
 
 const POKE_LIMIT = 1125;
 
@@ -23,10 +23,6 @@ interface Pokemon{
 let currentPokemonIdx = 0;
 let pokemon: Pokemon[] = [];
 
-const updatePokemonDisplay = () => {
-  $("display-wrapper__pokemon-display").text(pokemon[1].name);
-}
-
 const fetchPokeAPI = async () => { 
   const pokeAPI_URL = `https://pokeapi.co/api/v2/pokemon?` + new URLSearchParams({
     limit: "3",
@@ -49,9 +45,5 @@ const fetchPokeAPI = async () => {
   //update pokemon display ()
 };
 await fetchPokeAPI();
-updatePokemonDisplay();
-
-
-
 
 // 1126 pokemon
